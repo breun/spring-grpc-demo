@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+
+// Use a package under the package of the application class to let Spring Boot auto-configure a stub for it
+option java_package = "nl.breun.spring.grpc.demo.hello.v1.proto";
+
+// The greeting service definition.
+service HelloV1 {
+
+  // Get a greeting.
+  rpc SayHello(HelloRequest) returns (HelloReply);
+
+  // Get a stream of 10 greetings, 1 second apart.
+  rpc StreamHello(HelloRequest) returns (stream HelloReply);
+}
+
+// The request message containing the user's name.
+message HelloRequest {
+
+  // The name of the person to say hello to.
+  string name = 1;
+}
+
+// The response message containing the greeting.
+message HelloReply {
+
+  // The hello message.
+  string message = 1;
+}
