@@ -16,11 +16,10 @@
 
 	<properties>
 		<java.version>21</java.version>
-		<grpc.version>1.72.0</grpc.version>
-		<os-maven-plugin.version>1.7.1</os-maven-plugin.version>
+		<grpc.version>1.73.0</grpc.version>
 		<protobuf-java.version>4.30.2</protobuf-java.version>
-		<protobuf-maven-plugin.version>0.6.1</protobuf-maven-plugin.version>
-		<spring-grpc.version>0.8.0</spring-grpc.version>
+		<protobuf-maven-plugin.version>3.6.0</protobuf-maven-plugin.version>
+		<spring-grpc.version>0.9.0</spring-grpc.version>
 	</properties>
 
 	<dependencyManagement>
@@ -61,52 +60,27 @@
 	</dependencies>
 
 	<build>
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>kr.motd.maven</groupId>
-					<artifactId>os-maven-plugin</artifactId>
-					<version>${os-maven-plugin.version}</version>
-				</plugin>
-				<plugin>
-					<groupId>org.xolstice.maven.plugins</groupId>
-					<artifactId>protobuf-maven-plugin</artifactId>
-					<version>${protobuf-maven-plugin.version}</version>
-				</plugin>
-			</plugins>
-		</pluginManagement>
 		<plugins>
 			<plugin>
-				<groupId>kr.motd.maven</groupId>
-				<artifactId>os-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>initialize</id>
-						<phase>initialize</phase>
-						<goals>
-							<goal>detect</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.xolstice.maven.plugins</groupId>
+				<groupId>io.github.ascopes</groupId>
 				<artifactId>protobuf-maven-plugin</artifactId>
+				<version>${protobuf-maven-plugin.version}</version>
 				<configuration>
-					<protocArtifact>com.google.protobuf:protoc:${protobuf-java.version}:exe:${os.detected.classifier}</protocArtifact>
-					<pluginId>grpc-java</pluginId>
-					<pluginArtifact>io.grpc:protoc-gen-grpc-java:${grpc.version}:exe:${os.detected.classifier}</pluginArtifact>
+					<protocVersion>${protobuf-java.version}</protocVersion>
+					<binaryMavenPlugins>
+						<binaryMavenPlugin>
+							<groupId>io.grpc</groupId>
+							<artifactId>protoc-gen-grpc-java</artifactId>
+							<version>${grpc.version}</version>
+							<options>jakarta_omit,@generated=omit</options>
+						</binaryMavenPlugin>
+					</binaryMavenPlugins>
 				</configuration>
 				<executions>
 					<execution>
-						<id>compile</id>
 						<goals>
-							<goal>compile</goal>
-							<goal>compile-custom</goal>
+							<goal>generate</goal>
 						</goals>
-						<configuration>
-							<pluginParameter>jakarta_omit,@generated=omit</pluginParameter>
-						</configuration>
 					</execution>
 				</executions>
 			</plugin>
