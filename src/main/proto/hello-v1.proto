@@ -1,9 +1,9 @@
 syntax = "proto3";
 
-// Use a package under the package of the application class to let Spring Boot auto-configure a stub for it
-package nl.breun.spring.grpc.demo.hello.v1.proto;
-
 option java_multiple_files = true;
+
+// Use a package under the package of the application class to let Spring Boot auto-configure a stub for it
+option java_package = "nl.breun.spring.grpc.demo.hello.v1.proto";
 
 // The greeting service definition.
 service HelloV1 {
