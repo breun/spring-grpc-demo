@@ -18,7 +18,7 @@
 		<java.version>21</java.version>
 		<grpc.version>1.74.0</grpc.version><!-- Should match the version of io.grpc:* artifacts used by org.springframework.grpc:spring-grpc-server-spring-boot-starter:${spring-grpc.version}: https://central.sonatype.com/artifact/org.springframework.grpc/spring-grpc-server-spring-boot-starter -->
 		<protobuf-java.version>4.30.2</protobuf-java.version>
-		<protobuf-maven-plugin.version>3.8.0</protobuf-maven-plugin.version>
+		<protobuf-maven-plugin.version>3.9.0</protobuf-maven-plugin.version>
 		<spring-grpc.version>0.11.0</spring-grpc.version>
 	</properties>
 
