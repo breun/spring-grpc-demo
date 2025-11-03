@@ -1,5 +1,7 @@
 # Spring gRPC Demo
 
+**_Note: Spring gRPC will be added to Spring Boot via [!47288](https://github.com/spring-projects/spring-boot/pull/47288)._** 
+
 This service is a demo for the (currently still experimental) [Spring gRPC](https://docs.spring.io/spring-grpc/reference/index.html), based on Spring Boot.
 gRPC was created by Google and is open source.
 gRPC has official implementations for many programming languages, including Java and Go.
