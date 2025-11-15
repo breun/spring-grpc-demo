@@ -5,8 +5,8 @@ import nl.breun.spring.grpc.demo.hello.v1.proto.HelloRequest;
 import nl.breun.spring.grpc.demo.hello.v1.proto.HelloV1Grpc;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.grpc.test.autoconfigure.AutoConfigureInProcessTransport;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.grpc.test.AutoConfigureInProcessTransport;
 import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.Iterator;
