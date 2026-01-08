@@ -21,7 +21,7 @@ class HelloV1Service extends HelloV1Grpc.HelloV1ImplBase {
         String name = request.getName();
         log.info("Say hello: {}", name);
 
-        String message = String.format("Hello %s", name);
+        String message = "Hello %s".formatted(name);
         HelloReply reply = hello(message);
         responseObserver.onNext(reply);
         responseObserver.onCompleted();
@@ -33,7 +33,7 @@ class HelloV1Service extends HelloV1Grpc.HelloV1ImplBase {
         log.info("Stream hello: {}", name);
 
         IntStream.range(0, 5).forEach(index -> {
-            String message = String.format("[#%d] Hello %s", index + 1, name);
+            String message = "[#%d] Hello %s".formatted(index + 1, name);
             HelloReply reply = hello(message);
             responseObserver.onNext(reply);
             try {
