@@ -1,8 +1,6 @@
 # Spring gRPC Demo
 
-**_Note: Spring gRPC will be added to Spring Boot via [!47288](https://github.com/spring-projects/spring-boot/pull/47288)._** 
-
-This service is a demo for the (currently still experimental) [Spring gRPC](https://docs.spring.io/spring-grpc/reference/index.html), based on Spring Boot.
+This service is a demo for [Spring Boot's gRPC support](https://docs.spring.io/spring-boot/reference/io/grpc.html).
 gRPC was created by Google and is open source.
 gRPC has official implementations for many programming languages, including Java and Go.
 
@@ -19,7 +17,7 @@ Why gRPC seems interesting:
 A sweet spot for gRPC seems to be service-to-service communication.
 Due to its dependency on HTTP/2, it currently cannot be used directly from a browser without a proxy.
 
-## gRPC is not new, right?
+## Is gRPC a new thing?
 
 No, gRPC itself has been around since 2016, when it was released as a successor to Google's previous RPC infrastructure ("Stubby") to connect the large number of Google's microservices.
 Prior to Spring gRPC, there were already two other third party efforts to provide gRPC support for Spring Boot ([net.devh:grpc-spring-boot-starter](https://github.com/yidongnan/grpc-spring-boot-starter) and [io.github.lognet:grpc-spring-boot-starter](https://github.com/LogNet/grpc-spring-boot-starter)), but these never attracted large communities.
@@ -118,31 +116,31 @@ Let's also try the streaming use case, which emits a value every second:
 
 ## Testing / Client
 
-See [SpringGrpcDemoApplicationTests](src/test/java/com/bol/spring/grpc/demo/SpringGrpcDemoApplicationTests.java) for an example of integration tests, which use the generated stub to connect to the service.
+See [InProcessTests](src/test/java/nl/breun/spring/grpc/demo/InProcessTests.java) and [IntegrationTests](src/test/java/nl/breun/spring/grpc/demo/IntegrationTests.java) for an examples of test classes, which use the generated stub to connect to the service.
 
 ## gRPC on Tomcat instead of Netty
 
 Spring gRPC uses Netty for gRPC services by default, although it also possible to run gRPC services on Tomcat.
-If you want to run on Tomcat, add the `org.springframework.boot:spring-boot-starter-web` and `io.grpc:grpc-servlet-jakarta` dependencies.
+If you want to run on Tomcat, see [Switching to a Servlet Container](https://docs.spring.io/spring-boot/reference/io/grpc.html#io.grpc.server.servlet).
 
 ## Workflow for communication between services
 
 Some options, from lo-fi to hi-fi:
 
-1. Consumer copies the server's `proto` file into its repository. (AFAIK A lot of bol teams work this way.)
+1. Consumer copies the server's `proto` file into its repository.
 2. Consumer fetches the `proto` file from somewhere else.
    1. The service provider provides the `proto` file in a JAR and shares it, e.g. via Artifactory. (This only helps JVM consumers.)
    2. The service provider publishes their `proto` file to a [Protobuf registry](https://www.google.com/search?q=protobuf+registry).
 3. Consumer depends on an artifact which contains pre-generated client code ("stubs" in Protobuf speak).
    1. Maintained by the consumer team.
    2. Provided by the service provider. This does require the service provider providing pre-generated client code artifacts for all of the programming languages used by the consumers of the service.
-   3. Provided by a central service. This does require the central service to provide pre-generated client code artifacts for all of the programming languages that consumers may want to use. (This is similar to the approach used by RAGE's [API registry](https://gitlab.bol.io/api-1st/api-registry).)
+   3. Provided by a central service. This does require the central service to provide pre-generated client code artifacts for all of the programming languages that consumers may want to use.
 
 ## Known issues
 
 ### Workaround for known issue with gRPC on Tomcat with `grpcurl` for streaming use cases
 
-When using Tomcat (not the default), you'll need to customize Tomcat like this to avoid issues with `grpcurl` in streaming use cases:
+When using Tomcat (not the default), you may need to customize Tomcat like this to avoid issues with `grpcurl` in streaming use cases (not recently verified):
 
 ```
 @Bean

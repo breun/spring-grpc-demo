@@ -5,33 +5,38 @@ import nl.breun.spring.grpc.demo.hello.v1.proto.HelloRequest;
 import nl.breun.spring.grpc.demo.hello.v1.proto.HelloV1Grpc;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.grpc.test.autoconfigure.AutoConfigureInProcessTransport;
+import org.springframework.boot.grpc.test.autoconfigure.AutoConfigureTestGrpcTransport;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.grpc.client.ImportGrpcClients;
 
 import java.util.Iterator;
 
+import static nl.breun.spring.grpc.demo.TestUtils.request;
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * Using In-Process Test Transport: https://docs.spring.io/spring-boot/reference/io/grpc.html#io.grpc.testing.test-transport
+ */
 @SpringBootTest
-@AutoConfigureInProcessTransport
-class SpringGrpcDemoApplicationTests {
+@AutoConfigureTestGrpcTransport
+@ImportGrpcClients(types = HelloV1Grpc.HelloV1BlockingStub.class)
+class InProcessTests {
 
 	@Autowired
 	private HelloV1Grpc.HelloV1BlockingStub stub;
 
 	@Test
-	@DirtiesContext
 	void should_say_hello() {
-		HelloReply response = stub.sayHello(request("Jack"));
+		HelloRequest request = request("Jack");
+		HelloReply response = stub.sayHello(request);
 
 		assertThat(response.getMessage()).isEqualTo("Hello Jack");
 	}
 
 	@Test
-	@DirtiesContext
 	void should_say_hello_five_times_when_streaming() {
-        Iterator<HelloReply> responses = stub.streamHello(request("Alien"));
+		HelloRequest request = request("Alien");
+		Iterator<HelloReply> responses = stub.streamHello(request);
 
 		assertThat(responses)
 				.toIterable()
@@ -43,11 +48,5 @@ class SpringGrpcDemoApplicationTests {
 						"[#4] Hello Alien",
 						"[#5] Hello Alien"
 				);
-	}
-
-	private static HelloRequest request(String name) {
-		return HelloRequest.newBuilder()
-				.setName(name)
-				.build();
 	}
 }
