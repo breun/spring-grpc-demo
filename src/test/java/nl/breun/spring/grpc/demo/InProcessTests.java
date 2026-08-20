@@ -15,7 +15,7 @@ import static nl.breun.spring.grpc.demo.TestUtils.request;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Using In-Process Test Transport: https://docs.spring.io/spring-boot/reference/io/grpc.html#io.grpc.testing.test-transport
+ * <a href="https://docs.spring.io/spring-boot/reference/io/grpc.html#io.grpc.testing.test-transport">Using In-Process Test Transport</a>
  */
 @SpringBootTest
 @AutoConfigureTestGrpcTransport
