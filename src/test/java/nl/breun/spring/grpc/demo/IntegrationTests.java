@@ -16,7 +16,7 @@ import static nl.breun.spring.grpc.demo.TestUtils.request;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Testing with a running server: https://docs.spring.io/spring-boot/reference/io/grpc.html#io.grpc.testing.local-server-port
+ * <a href="https://docs.spring.io/spring-boot/reference/io/grpc.html#io.grpc.testing.local-server-port">Testing with a running server</a>
  */
 @SpringBootTest(properties = "spring.grpc.server.port=0")
 class IntegrationTests {

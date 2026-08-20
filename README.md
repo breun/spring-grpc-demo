@@ -120,7 +120,7 @@ See [InProcessTests](src/test/java/nl/breun/spring/grpc/demo/InProcessTests.java
 
 ## gRPC on Tomcat instead of Netty
 
-Spring gRPC uses Netty for gRPC services by default, although it also possible to run gRPC services on Tomcat.
+Spring gRPC uses Netty for gRPC services by default, although it is also possible to run gRPC services on Tomcat.
 If you want to run on Tomcat, see [Switching to a Servlet Container](https://docs.spring.io/spring-boot/reference/io/grpc.html#io.grpc.server.servlet).
 
 ## Workflow for communication between services
@@ -133,8 +133,8 @@ Some options, from lo-fi to hi-fi:
    2. The service provider publishes their `proto` file to a [Protobuf registry](https://www.google.com/search?q=protobuf+registry).
 3. Consumer depends on an artifact which contains pre-generated client code ("stubs" in Protobuf speak).
    1. Maintained by the consumer team.
-   2. Provided by the service provider. This does require the service provider providing pre-generated client code artifacts for all of the programming languages used by the consumers of the service.
-   3. Provided by a central service. This does require the central service to provide pre-generated client code artifacts for all of the programming languages that consumers may want to use.
+   2. Provided by the service provider. This does require the service provider providing pre-generated client code artifacts for all the programming languages used by the consumers of the service.
+   3. Provided by a central service. This does require the central service to provide pre-generated client code artifacts for all the programming languages that consumers may want to use.
 
 ## Known issues
 
